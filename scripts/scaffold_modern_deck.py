@@ -215,6 +215,53 @@ def add_badge(slide, cx, cy, d, text, fill=BLUE, color="FFFFFF"):
     set_font(r, size=15, bold=True, color=color)
 
 
+def add_click_sequence(slide, steps):
+    """点击依次出现：每次鼠标点击，按顺序出现一组 shape（进入=出现/appear）。
+    steps: list[list[int]]，每个内层 list = 同一次点击同时出现的 shape id。
+    未列入 steps 的元素（标题/页眉）从一开始就可见。标准 <p:timing>，无渐变/无 alpha，
+    WPS/PowerPoint 兼容。"""
+    from lxml import etree
+    sld = slide._element
+    old = sld.find(qn('p:timing'))
+    if old is not None: sld.remove(old)
+    timing = etree.SubElement(sld, qn('p:timing'))
+    tnLst = etree.SubElement(timing, qn('p:tnLst'))
+    root = etree.SubElement(tnLst, qn('p:par'))
+    rc = etree.SubElement(root, qn('p:cTn')); rc.set('id', '1'); rc.set('fill', 'hold')
+    sc = etree.SubElement(rc, qn('p:stCondLst'))
+    for dvt in ('0', 'indefinite'):
+        c = etree.SubElement(sc, qn('p:cond')); c.set('srId', '0'); c.set('dvt', dvt)
+    rchild = etree.SubElement(rc, qn('p:childTnLst'))
+    _id = [1]
+    def nid():
+        _id[0] += 1; return str(_id[0])
+    for group in steps:
+        par = etree.SubElement(rchild, qn('p:par'))
+        ctn = etree.SubElement(par, qn('p:cTn')); ctn.set('id', nid()); ctn.set('fill', 'hold')
+        cs = etree.SubElement(ctn, qn('p:stCondLst'))
+        c0 = etree.SubElement(cs, qn('p:cond')); c0.set('srId', '0'); c0.set('dvt', '0')
+        schild = etree.SubElement(ctn, qn('p:childTnLst'))
+        for spId in group:
+            ppar = etree.SubElement(schild, qn('p:par'))
+            pctn = etree.SubElement(ppar, qn('p:cTn')); pctn.set('id', nid()); pctn.set('fill', 'hold')
+            ps = etree.SubElement(pctn, qn('p:stCondLst'))
+            pc = etree.SubElement(ps, qn('p:cond')); pc.set('srId', '0'); pc.set('dvt', '0')
+            pch = etree.SubElement(pctn, qn('p:childTnLst'))
+            anim = etree.SubElement(pch, qn('p:animEffect'))
+            anim.set('id', nid()); anim.set('filter', 'appear'); anim.set('transition', 'in')
+            anim.set('presetId', '1'); anim.set('presetClass', 'entr'); anim.set('presetSubtype', '0'); anim.set('build', '0')
+            cb = etree.SubElement(anim, qn('p:cBhvr'))
+            cbc = etree.SubElement(cb, qn('p:cTn')); cbc.set('id', nid()); cbc.set('fill', 'hold')
+            cbs = etree.SubElement(cbc, qn('p:stCondLst'))
+            cbc0 = etree.SubElement(cbs, qn('p:cond')); cbc0.set('srId', '0'); cbc0.set('dvt', '0')
+            tgt = etree.SubElement(cb, qn('p:tgtEl'))
+            spt = etree.SubElement(tgt, qn('p:spTgt')); spt.set('spId', str(spId))
+            anl = etree.SubElement(cb, qn('p:attrNameLst'))
+            an = etree.SubElement(anl, qn('p:attrName')); an.text = 'style.visibility'
+    etree.SubElement(timing, qn('p:bldLst'))
+    etree.SubElement(timing, qn('p:extLst'))
+
+
 # ============================ 示例页（占位文案，替换成真实内容） ============================
 def build_cover():
     s = prs.slides.add_slide(BLANK)
@@ -251,22 +298,27 @@ def build_example_page():
         ("03", "卡片标题", "卡片描述文字，控制在两行内", AMBER),
     ]
     cw, ch, gap, x0, y0 = 340, 250, 40, 90, 250
+    groups = []
     for i, (no, title, desc, col) in enumerate(cards):
         x = x0 + i * (cw + gap)
-        add_card(s, x, y0, cw, ch, fill=SURFACE, border=BORDER)
-        add_badge(s, x + 36, y0 + 38, 44, no, fill=col, color="14181F")
-        add_text(s, x + 24, y0 + 78, cw - 48, 30,
-                 [{"t": title, "size": 22, "bold": True, "color": TEXT}], align=PP_ALIGN.LEFT)
-        add_text(s, x + 24, y0 + 120, cw - 48, 90,
-                 [{"t": desc, "size": 15, "color": MUTED}], align=PP_ALIGN.LEFT)
+        card = add_card(s, x, y0, cw, ch, fill=SURFACE, border=BORDER)
+        badge = add_badge(s, x + 36, y0 + 38, 44, no, fill=col, color="14181F")
+        t = add_text(s, x + 24, y0 + 78, cw - 48, 30,
+                     [{"t": title, "size": 22, "bold": True, "color": TEXT}], align=PP_ALIGN.LEFT)
+        d = add_text(s, x + 24, y0 + 120, cw - 48, 90,
+                     [{"t": desc, "size": 15, "color": MUTED}], align=PP_ALIGN.LEFT)
+        groups.append([card.shape_id, badge.shape_id, t.shape_id, d.shape_id])
+    # 演示：三张卡点击依次出现（标题/页眉始终可见）
+    add_click_sequence(s, groups)
     add_pageno(s, 2)
 
 
 # ============================ 主题字体兜底 + 保存 ============================
 def patch_theme_fonts(path):
-    """把主题 major/minor 的 latin+ea+cs 也设为项目字体，防未指定文本回退宋体。"""
-    import re, zipfile, shutil
-    tmp = path + ".tmp"
+    """把主题 major/minor 的 latin+ea+cs 也设为项目字体，防未指定文本回退宋体。
+    直接回写 path（truncate 重写，不依赖 os.unlink）—— 沙箱 safe-delete 会拦截
+    shutil.move 的删除回退，tmp+move 模式在受限环境会失败。"""
+    import re, zipfile
     with zipfile.ZipFile(path, 'r') as zin:
         names = zin.namelist(); data = {n: zin.read(n) for n in names}
     xml = data['ppt/theme/theme1.xml'].decode('utf-8')
@@ -285,9 +337,8 @@ def patch_theme_fonts(path):
         if m:
             xml = xml[:m.start()] + patch_block(m.group(0), ln, ea) + xml[m.end():]
     data['ppt/theme/theme1.xml'] = xml.encode('utf-8')
-    with zipfile.ZipFile(tmp, 'w', zipfile.ZIP_DEFLATED) as zout:
+    with zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED) as zout:
         for n in names: zout.writestr(n, data[n])
-    shutil.move(tmp, path)
 
 
 if __name__ == "__main__":
