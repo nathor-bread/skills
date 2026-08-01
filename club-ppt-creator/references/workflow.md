@@ -84,3 +84,16 @@ After each real build, fold improvements back:
 - New safe primitive → add to `scaffold_modern_deck.py`.
 - New WPS quirk or layout pattern → `technical.md` / this file.
 - Keep the WPS iron law (no gradFill, no alpha, solid shadows) untouched.
+
+## 7. Publishing to GitHub (hard-won notes)
+
+- **WorkBuddy's built-in GitHub MCP is READ-ONLY.** The connector (via `api.githubcopilot.com`) only exposes read tools (`get_me`, `search_repositories`) plus a `push_files`/`create_or_update_file` that the *server* rejects with `403 Resource not accessible by integration`. Do not rely on MCP to create repos or push — it will 403 even when the connector shows "connected".
+- **Use a PAT + local git instead.** Generate a **fine-grained token** (Settings → Developer settings → Fine-grained tokens), scoped to the single target repo with **Contents: Read and write** + **Metadata: Read-only**, expiring in 1 hour. Then:
+  ```bash
+  git remote add origin https://<USER>:<PAT>@github.com/<USER>/<repo>.git
+  git push -u origin main
+  git remote remove origin   # purge the tokened remote immediately
+  ```
+  Keep the PAT in an env var / inline only; never write it into `.git/config` or any file. Tell the user to **revoke the token right after** the push.
+- **Fine-grained tokens block `git push --force` by default.** If you need to rewrite history (e.g. move files into a subdir), do a **normal fast-forward push** instead: make the restructure commit a direct child of the current remote HEAD, then `git push origin main` (no `--force`). `--force` / `--force-with-lease` will be rejected.
+- **Directory layout gotcha:** if your local publish repo's root *is* the skill folder, pushing lands files at the repo root. To get a `repo/club-ppt-creator/...` layout, `git mv` the files into a `club-ppt-creator/` subdir first, commit, then push (fast-forward).
