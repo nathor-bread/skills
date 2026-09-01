@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 效率金矿 · 使用说明</title>
+<style>
+  :root{
+    --ink:#2c2c2a; --muted:#5f5e5a; --line:#e3e1d8; --bg:#fbfaf6;
+    --card:#ffffff; --accent:#0f6e56; --accent-soft:#e1f5ee; --warn:#854f0b; --warn-soft:#faeeda;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+       color:var(--ink);background:var(--bg);line-height:1.75;font-size:16px}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px}
+  header{padding:64px 0 40px;border-bottom:1px solid var(--line);margin-bottom:40px}
+  h1{font-size:30px;font-weight:600;letter-spacing:.5px}
+  .tagline{margin-top:14px;font-size:17px;color:var(--muted)}
+  .lead{margin-top:22px}
+  .lead p{margin-bottom:10px}
+  h2{font-size:21px;font-weight:600;margin:52px 0 18px;padding-left:12px;border-left:4px solid var(--accent)}
+  h3{font-size:16.5px;font-weight:600;margin:24px 0 8px}
+  p{margin-bottom:10px}
+  ul{padding-left:22px;margin-bottom:12px}
+  li{margin-bottom:6px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px}
+  .flow{display:flex;flex-direction:column;align-items:center;gap:2px;margin:24px 0}
+  .flow .step{background:var(--accent-soft);color:#04342c;border:1px solid #9fe1cb;border-radius:10px;
+              padding:10px 26px;font-weight:500;width:min(340px,100%);text-align:center}
+  .flow .arrow{color:var(--accent);font-size:15px;line-height:1.4;padding:3px 0}
+  table{width:100%;border-collapse:collapse;margin:14px 0 18px;font-size:14.5px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+  th{background:#f1efe8;font-weight:600}
+  code{font-family:Consolas,Menlo,monospace;font-size:.88em;background:#f1efe8;border-radius:5px;padding:2px 7px}
+  .why{background:var(--warn-soft);border:1px solid #fac775;border-radius:12px;padding:18px 22px;margin-top:16px}
+  .why strong{color:var(--warn)}
+  .faq dt{font-weight:600;margin-top:18px}
+  .faq dd{color:var(--muted);margin:6px 0 0 0}
+  .pill{display:inline-block;background:var(--accent-soft);color:#0f6e56;border-radius:99px;
+        padding:2px 12px;font-size:13px;margin-right:8px;font-weight:500}
+  .cta{margin-top:56px;text-align:center;background:var(--accent-soft);border:1px solid #9fe1cb;
+       border-radius:14px;padding:30px 24px}
+  .cta .big{font-size:18px;font-weight:600;color:#04342c}
+  footer{margin-top:60px;font-size:13px;color:var(--muted);text-align:center}
+  @media(max-width:520px){h1{font-size:24px}.wrap{padding:0 16px 60px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>AI 效率金矿</h1>
+  <p class="tagline">为什么用一样的 AI，有人效率翻倍，有人只会聊天？</p>
+  <div class="lead">
+    <p>多半不是你不会用，是还没找到该拿它干什么。</p>
+    <p>这个包不给你 AI 工具清单——工具遍地都是，难的是想清楚<strong>自己手头哪件事该交出去</strong>。我们要做的就一件：接住你说的一件事，陪你把它拆开、改对，找出最值得交给 AI 的那部分，等你真跑通了再告诉你坑在哪。</p>
+    <p>全程靠聊天推进，不用装东西，不用懂技术。</p>
+  </div>
+</header>
+
+<h2>你会拿到什么</h2>
+<ul>
+  <li><strong>一张你自己改过的流程图</strong>（不是 AI 替你画的——你自己改过的才算数）</li>
+  <li><strong>你每周到底能抢回多少小时</strong>（不是感觉，是算出来的）</li>
+  <li><strong>最该先交给 AI 的那一件事</strong>（不是所有能交的都值得先交）</li>
+  <li><strong>一个这周就能试的方案</strong>，含怎么跟 AI 说、怎么算成功、不好使怎么退回</li>
+  <li><strong>⚠️ 你跑完之后，这个场景专属的注意事项</strong>（AI 会编数字、会过时、会聊长了忘事儿——这些等你上钩了再告诉你）</li>
+</ul>
+
+<h2>怎么走，以及为什么要这么绕</h2>
+<div class="flow">
+  <div class="step">你说要干什么</div>
+  <div class="arrow">↓</div>
+  <div class="step">我按阶段搭个粗糙骨架</div>
+  <div class="arrow">↓</div>
+  <div class="step">你改到对为止</div>
+  <div class="arrow">↓</div>
+  <div class="step">我告诉你哪些能交给 AI</div>
+  <div class="arrow">↓</div>
+  <div class="step">你去跑第一遍</div>
+  <div class="arrow">↓</div>
+  <div class="step">跑完回来，我告诉你坑在哪</div>
+</div>
+
+<div class="why">
+  <p><strong>骨架故意给得粗糙。</strong> 它按阶段搭（先找东西、再做东西、最后交出去），每个阶段只给一个开头。给你一张完整的图，你只会扫一眼说"对对对"；给你个有缺口的骨架，你得动手补——自己补过的流程，你才会认。</p>
+  <p style="margin-top:10px"><strong>判断放在流程定稿之后。</strong> 一边拆一边想"AI 能不能做"，你会下意识跳过那些"觉得它肯定做不了"的步骤，流程从一开始就是残缺的。先只描述现状，才能拿到完整的图。</p>
+  <p style="margin-top:10px"><strong>风险等你跑完再说。</strong> 没尝到甜头先吃一叠警告，人会跑。所以只有两条底线是当场必说的：这里头有没有不能外传的东西、出了错谁负责。剩下的坑，等你真的动手了再告诉你——那时候你听得进去。</p>
+</div>
+
+<h2>三种深度，别一上来就做全套</h2>
+<table>
+  <tr><th>想花多久</th><th>走到哪</th><th>拿到什么</th></tr>
+  <tr><td><strong>10 分钟</strong>（推荐先试这个）</td><td>说目标 → 改骨架 → 看哪些能交给 AI</td><td>1 个建议 + 一条"跑完回来找我"</td></tr>
+  <tr><td><strong>30 分钟</strong></td><td>上面 + 算值不值</td><td>排名表 + 前三名</td></tr>
+  <tr><td><strong>60-90 分钟</strong></td><td>全部走满</td><td>完整诊断 + 第一个可执行的方案</td></tr>
+</table>
+<p><strong>第一次建议从 10 分钟那个开始。</strong> 跑通一个场景，比做一份漂亮的诊断有用得多。</p>
+
+<h2>三种用法，挑一种</h2>
+<div class="card">
+  <h3><span class="pill">用法一</span>自己填（任何人都能用，推荐）</h3>
+  <ol style="padding-left:22px">
+    <li>打开 <code>assets/pea-scorecard.md</code>，复制到笔记软件或打印出来</li>
+    <li>第 0 步写下你要干的事，第 1 步搭个粗糙骨架，<strong>第 2 步把它改到你认</strong></li>
+    <li>想不起来怎么填，翻 <code>references/method-cards.md</code>，每一步的标准和现成例子都在里面</li>
+    <li>填到方案就停手，<strong>先去跑</strong>——第 7 步等跑完再回来填</li>
+  </ol>
+  <p style="margin-top:8px">不需要 AI，不需要联网，一支笔也行。</p>
+</div>
+<div class="card">
+  <h3><span class="pill">用法二</span>让 AI 带你做</h3>
+  <p>装了 AI 助手（Claude Code / OpenClaw / WorkBuddy / Cursor 等）的话：</p>
+  <ol style="padding-left:22px">
+    <li>把整个 <code>ai-efficiency-goldmine</code> 文件夹放进你工具的 skills 目录</li>
+    <li>对它说一句：<strong>"帮我挖一下我的效率金矿"</strong>，或者直接告诉它你要干什么</li>
+    <li>它问你答，它会自己判断该一步步带你走还是直接给结论</li>
+  </ol>
+  <p style="margin-top:8px"><strong>跑完之后记得回来跟它说一声</strong>——说"跑完了"或者"没成功"，它会接着帮你。</p>
+</div>
+<div class="card">
+  <h3><span class="pill">用法三</span>先看懂再决定</h3>
+  <p>读 <code>references/method-cards.md</code>，10 分钟，四个方法的完整标准和两个真实例子都在里面。</p>
+</div>
+
+<h2>目录里有什么</h2>
+<table>
+  <tr><th>文件</th><th>是什么</th><th>什么时候看</th></tr>
+  <tr><td><code>README.md</code> / 本网页</td><td>使用说明</td><td>第一个看</td></tr>
+  <tr><td><code>assets/pea-scorecard.md</code></td><td>空白评分卡，可打印可手填</td><td>用法一的主角</td></tr>
+  <tr><td><code>references/method-cards.md</code></td><td>四个方法的评分标准 + 两个真实例子</td><td>填表时对着看</td></tr>
+  <tr><td><code>references/pitfalls.md</code></td><td><strong>交给 AI 前要注意什么</strong></td><td><strong>跑完之后</strong>才看</td></tr>
+  <tr><td><code>references/scene-library.md</code></td><td>40 个常见场景、回报参考、行动路线图</td><td>想不出场景时翻</td></tr>
+  <tr><td><code>references/dialogue-scripts.md</code></td><td>一步步带你走时的提问话术</td><td>给 AI 助手看的，人可以跳过</td></tr>
+  <tr><td><code>scripts/pea_calc.py</code></td><td>可选的自动算分脚本</td><td><strong>不用也完全没问题</strong></td></tr>
+  <tr><td><code>SKILL.md</code></td><td>给 AI 助手看的流程定义</td><td>用法二才需要</td></tr>
+</table>
+<p>最少只要两个文件就能上手：<code>pea-scorecard.md</code> + <code>method-cards.md</code>。跑完再加一份 <code>pitfalls.md</code>。</p>
+
+<h2>几个常见问题</h2>
+<dl class="faq">
+  <dt>为什么要我自己改骨架，不能直接给我一张图？</dt>
+  <dd>给你一张完整的图，你只会扫一眼说"对对对"，然后就忘了。给你个有缺口的，你得动手补——补过的东西才是你自己的。这一步省不得。</dd>
+  <dt>为什么不一开始就告诉我所有风险？</dt>
+  <dd>因为没尝到甜头先吃一叠警告，人会跑。所以只有两条底线当场必说（不外传、谁签字），剩下的坑等你真动手了再讲。但安全相关的绝不拖——涉及客户名单、身份证号、未公开方案的，当场就会拦下来。</dd>
+  <dt>我打分不准怎么办？</dt>
+  <dd>估个大概就行。这套东西的目的是排序——找出最该先做的那件，不是算精确值。7 分和 8 分的差别不重要，30 分和 10 分的差别才重要。</dd>
+  <dt>我工作太杂，拆不出来。</dt>
+  <dd>只挑最烦的那一件，不追求全面。骨架是按阶段搭的（先找东西、再做东西、最后交出去），每个阶段开头写一步就行——几步都行，不用凑数。</dd>
+  <dt>我觉得 AI 干不了我的活。</dt>
+  <dd>那就从最小的开始——复制粘贴、格式调整、会议记录转文字，这些总有吧？先破冰，别一上来就想让 AI 替你做战略。</dd>
+  <dt>跑完没成功怎么办？</dt>
+  <dd>那更好——说明你真动手了，没动手的人连卡在哪都不知道。四种常见卡法：场景选太大（拆小）、话说得太笼统（给它样例）、工具不对（换一个）、这事本来就不适合交给 AI（换场景，这不是失败，是排除了一个错误答案）。</dd>
+  <dt>我的数据会被传到哪里？</dt>
+  <dd>哪儿都不会。这个包不联网、不上传、不要账号、不读你工作目录以外的文件。你填的岗位信息和工时，只留在你自己的电脑或你自己的对话里。</dd>
+</dl>
+
+<h2>给分发者：装进 AI 工具</h2>
+<table>
+  <tr><th>工具</th><th>安装位置</th></tr>
+  <tr><td>Claude Code</td><td><code>~/.claude/skills/</code>（个人）或 <code>.claude/skills/</code>（项目）</td></tr>
+  <tr><td>OpenClaw</td><td><code>~/.openclaw/skills/</code> 或工作区 <code>skills/</code></td></tr>
+  <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td></tr>
+  <tr><td>其他支持 SKILL.md 的工具</td><td>各自的 skills 目录</td></tr>
+</table>
+<p>把整个 <code>ai-efficiency-goldmine/</code> 目录复制过去即可，内容不用改。</p>
+<p><strong>不支持 SKILL.md 的工具</strong>（如 Codex CLI）：把 <code>SKILL.md</code> 正文追加进项目或全局的 <code>AGENTS.md</code>；或在对话里直接引用该文件的路径。</p>
+<p><strong>只分发给人、不给 AI 用</strong>：删掉 <code>SKILL.md</code> 和 <code>scripts/</code> 就行，剩下的是一份完整的人工手册，功能一点不缺。</p>
+
+<h2>关于这套方法</h2>
+<ul>
+  <li><strong>AI 替代的是"任务"，不是"岗位"</strong>——交出 80% 的杂事，保住 20% 真正值钱的事</li>
+  <li><strong>AI 是"增强"不是"取代"</strong>——主流玩法永远是「AI 出初稿 → 人审核 → 人机一起完成」</li>
+  <li><strong>先描述，后评判</strong>——流程没定稿就判断能不能交给 AI，你会自我审查</li>
+  <li><strong>能交给 AI，不等于可以放心交给 AI</strong>——但风险要等他上钩了再讲</li>
+</ul>
+
+<div class="cta">
+  <p class="big">现在就做一件事</p>
+  <p style="margin-top:10px">想想你这一周最烦的那件事是什么，打开评分卡，在第 0 步把它写下来。<br>你会发现，能抢回来的时间比你以为的多。</p>
+</div>
+
+<footer>
+  方法框架参考公开方法论整理，案例与回报数据均来自公开案例，用于参考而非承诺。<br>
+  本页为 <code>ai-efficiency-goldmine</code> Skill 的网页版说明，与 <code>README.md</code> 内容同步。
+</footer>
+
+</div>
+</body>
+</html>
